@@ -3,6 +3,7 @@ const bodyParser = require('body-parser'); //middleware that parses body of inco
 const bcrypt = require('bcrypt-nodejs'); //encrypt and decrypt data
 const cors = require('cors'); // browser feature that controls cross-domain requests between web pages and servers
 const knex = require('knex'); // SQL query builder that lets me write db quesries in JS instead of raw SQL
+require('dotenv').config()
 
 const register = require('./controllers/register'); 
 const signin = require('./controllers/signin');
@@ -12,11 +13,8 @@ const image = require('./controllers/image');
 const db = knex({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',     // localhost
-    user: 'jalilah',       // your postgres username
-    password: '',          // your postgres password
-    database: 'smart-brain',
-    port: 5432,
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
   }
 });
 
@@ -28,10 +26,10 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => { res.send('Smart Brain API running'); }); // Root route
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) }); // Sign-in route
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) }); // Register route
-app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db) }); // Profile route. (:id) is a variable passed in the url, only appears in get requests
+app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db) }); // Profile route. (:id) is a variable passed in the url, only appears in get requests.
 app.post('/imageurl', (req, res) => { image.handleApiCall(req, res) }); // Clarifai API call
 app.put("/image", (req, res) => image.handleImage(req, res, db)); // Update rank
 
 // Start server
-app.listen(3000, () => {
-  console.log('App is running on port 3000')})
+app.listen(process.env.PORT, () => {
+  console.log(`App is running on port ${process.env.PORT}`)})
