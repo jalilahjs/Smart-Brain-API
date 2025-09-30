@@ -27,8 +27,8 @@ app.get('/', (req, res) => { res.send('Smart Brain API running'); }); // Root ro
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt) }); // Sign-in route
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) }); // Register route
 app.get('/profile/:id', (req, res) => { profile.handleProfileGet(req, res, db) }); // Profile route. (:id) is a variable passed in the url, only appears in get requests.
-app.post('/imageurl', (req, res) => { image.handleApiCall(req, res) }); // Clarifai API call
-app.put("/image", (req, res) => image.handleImage(req, res, db)); // Update rank
+app.post('/faceDetection', (req, res) => { image.handleFaceDetection(req, res) }); // Clarifai API call
+app.put("/score", (req, res) => image.handleScore(req, res, db)); // Update rank
 
 // Start server
 app.listen(process.env.PORT, () => {
