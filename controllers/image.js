@@ -2,7 +2,7 @@ const fetch = require("node-fetch"); // CommonJS
 require('dotenv').config()
 
 // Handle Clarifai API call
-const handleApiCall = (req, res) => {
+const handleFaceDetection = (req, res) => {
   const PAT = process.env.CLARIFAI_PAT;
   const USER_ID = process.env.CLARIFAI_USER_ID;
   const APP_ID = process.env.CLARIFAI_APP_ID;
@@ -46,7 +46,7 @@ const handleApiCall = (req, res) => {
 };
 
 // Handle updating user entries (increment by number of faces detected)
-const handleImage = (req, res, db) => {
+const handleScore = (req, res, db) => {
   const { id, faces } = req.body;
 
   db("users")
@@ -57,4 +57,4 @@ const handleImage = (req, res, db) => {
     .catch(() => res.status(400).json("unable to get entries"));
 };
 
-module.exports = { handleApiCall, handleImage };
+module.exports = { handleFaceDetection, handleScore };
