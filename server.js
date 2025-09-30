@@ -2,7 +2,7 @@ const express = require('express'); // allows hosting of API
 const bodyParser = require('body-parser'); //middleware that parses body of incoming HTTP requests eg JSON/form data 
 const bcrypt = require('bcrypt-nodejs'); //encrypt and decrypt data
 const cors = require('cors'); // browser feature that controls cross-domain requests between web pages and servers
-const knex = require('knex'); // SQL query builder that lets me write db quesries in JS instead of raw SQL
+const knex = require('knex'); // SQL query builder that lets me write db queries in JS instead of raw SQL
 require('dotenv').config()
 
 const register = require('./controllers/register'); 
